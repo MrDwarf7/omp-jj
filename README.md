@@ -13,6 +13,11 @@
 prepares omp's `/move` command. You choose when to switch the session.
 The plugin runs jj directly, without creating a Git branch or bookmark.
 
+This standalone workaround SHOULD eventually be upstreamed into omp's built-in
+`/wt`. Access to omp's internal session relocation and worktree lifecycle
+machinery could let `/wt` handle both in one flow. This extension uses explicit
+`/jwt` then `/move` commands and leaves workspace cleanup to you.
+
 ```console
 /jwt feat-auth
 /move ~/.omp/jj-wt/myrepo/feat-auth      ← already typed in for you, press Enter
@@ -101,13 +106,26 @@ omp plugin install github:MrDwarf7/omp-jj
 omp loads the TypeScript entry point directly. There are no runtime package
 dependencies; omp supplies the extension API.
 
-To pin a revision, append `#<tag-or-commit>` to the GitHub install target.
-Update or remove the plugin with:
+To pin a different tag or commit, append `#<tag-or-commit>` to the install
+target. Update or remove the plugin with:
 
 ```sh
 omp plugin upgrade omp-jj
 omp plugin uninstall omp-jj
 ```
+
+## Releases
+
+Pin the initial release with:
+
+```sh
+omp plugin install github:MrDwarf7/omp-jj#v0.1.0
+```
+
+For a later release, update and verify `package.json`'s version, commit and
+push the change, then push a matching `v<version>` tag. The tag workflow checks
+the version and creates a GitHub Release with generated notes; GitHub provides
+the source archives.
 
 ## Configuration
 

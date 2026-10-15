@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Check version and create release
+        run: |
+          set -euo pipefail
+          version="$(gh api \
+            -H 'Accept: application/vnd.github.raw' \
+            "repos/${GH_REPO}/contents/package.json?ref=${GITHUB_REF_NAME}" |
+            jq -r '.version')"
+          if [[ "${GITHUB_REF_NAME}" != "v${version}" ]]; then
+            printf 'Tag %s does not match package version %s\n' "${GITHUB_REF_NAME}" "${version}" >&2
+            exit 1
+          fi
+          gh release create "${GITHUB_REF_NAME}" --verify-tag --generate-notes
