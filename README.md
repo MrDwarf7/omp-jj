@@ -1,4 +1,7 @@
-# omp-jj
+<!-- rumdl-disable MD033 -->
+<h1 align="center">omp-jj</h1>
+
+<div align="center">
 
 **`/wt` for [jj](https://github.com/jj-vcs/jj) repos in
 [oh-my-pi](https://github.com/can1357/oh-my-pi) (`omp`).**
@@ -8,6 +11,9 @@
 ![language](https://img.shields.io/badge/TypeScript-strict-3178c6?style=for-the-badge&logo=typescript&logoColor=white)
 ![deps](https://img.shields.io/badge/runtime_deps-0-22c55e?style=for-the-badge)
 ![tests](https://img.shields.io/badge/tests-13_passing-22c55e?style=for-the-badge)
+
+</div>
+<!-- rumdl-enable MD033 -->
 
 `/jwt` creates a jj workspace with the changes in your current `@`, then
 prepares omp's `/move` command. You choose when to switch the session.
